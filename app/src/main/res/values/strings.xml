@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">My Compose App</string>
+
+    <string name="celsius">ºC</string>
+</resources>
