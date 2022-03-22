@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
+import coil.compose.SubcomposeAsyncImage
 import com.example.mycomposeapp.R
 import com.example.mycomposeapp.data.model.getWeather.DailyWeatherData
 import kotlin.math.roundToInt
@@ -77,11 +77,19 @@ fun CurrentWeather() {
             }
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Icon(
-                    painter = rememberImagePainter("https://openweathermap.org/img/wn/${weatherForecastPageViewModel.currentWeather.weatherDescription[0].icon}@2x.png"),
+                SubcomposeAsyncImage(
+                    model = "https://openweathermap.org/img/wn/${weatherForecastPageViewModel.currentWeather.weatherDescription[0].icon}@2x.png",
                     contentDescription = "weather icon",
                     modifier = Modifier
-                        .size(100.dp)
+                        .size(100.dp),
+                    loading = {
+                        Box {
+                            CircularProgressIndicator(
+                                color = MaterialTheme.colors.secondary,
+                                modifier = Modifier.align(Alignment.Center)
+                            )
+                        }
+                    }
                 )
 
                 Text(text = weatherForecastPageViewModel.currentWeather.weatherDescription[0].description)
@@ -112,10 +120,18 @@ fun DailyWeather(dailyWeather: DailyWeatherData) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Icon(
-                    painter = rememberImagePainter("https://openweathermap.org/img/wn/${dailyWeather.weatherDescription[0].icon}@2x.png"),
+                SubcomposeAsyncImage(
+                    model = "https://openweathermap.org/img/wn/${dailyWeather.weatherDescription[0].icon}@2x.png",
                     contentDescription = "weather icon",
-                    modifier = Modifier.size(80.dp)
+                    modifier = Modifier.size(80.dp),
+                    loading = {
+                        Box {
+                            CircularProgressIndicator(
+                                color = MaterialTheme.colors.secondary,
+                                modifier = Modifier.align(Alignment.Center)
+                            )
+                        }
+                    }
                 )
 
                 Text(
